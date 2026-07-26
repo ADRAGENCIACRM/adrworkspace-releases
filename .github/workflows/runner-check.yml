@@ -1,0 +1,13 @@
+name: Runner check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: windows-latest
+    steps:
+      - run: Write-Output "Windows runner available"
