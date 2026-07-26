@@ -17,7 +17,7 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download build-input-v0.1.0 --pattern build-input.7z
+        run: gh release download build-input-v0.1.0 --pattern build-input-secure.7z
 
       - name: Decrypt build input
         shell: pwsh
@@ -25,7 +25,7 @@ jobs:
           BUILD_ARCHIVE_PASSWORD: ${{ secrets.BUILD_ARCHIVE_PASSWORD }}
         run: |
           New-Item -ItemType Directory -Path app | Out-Null
-          & "$env:ProgramFiles\7-Zip\7z.exe" x build-input.7z "-p$env:BUILD_ARCHIVE_PASSWORD" -oapp -y
+          & "$env:ProgramFiles\7-Zip\7z.exe" x build-input-secure.7z "-p$env:BUILD_ARCHIVE_PASSWORD" -oapp -y
           if ($LASTEXITCODE -ne 0) {
             throw "Could not decrypt build input"
           }
